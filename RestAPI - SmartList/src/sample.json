@@ -1,0 +1,38 @@
+[
+  {
+    "id": "1",
+    "nombre": "Javier",
+    "apellido": "Marquez",
+    "numero_control": "19450673"
+  },
+  {
+    "id": "2",
+    "nombre": "Diego",
+    "apellido": "Roman",
+    "numero_control": "19450678"
+  },
+  {
+    "id": "3",
+    "nombre": "Jorge",
+    "apellido": "Perez",
+    "numero_control": "19450621"
+  },
+  {
+    "id": "4",
+    "nombre": "Karla",
+    "apellido": "Nuñez",
+    "numero_control": "19450692"
+  },
+  {
+    "id": "5",
+    "nombre": "Jazmin",
+    "apellido": "Torres",
+    "numero_control": "19450612"
+  },
+  {
+    "id": "6",
+    "nombre": "Manuel",
+    "apellido": "El Manu",
+    "numero_control": "19450652"
+  }
+]  

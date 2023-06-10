@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "137477349225",
+    "firebase_url": "https://smartlist-eb7b4-default-rtdb.firebaseio.com",
+    "project_id": "smartlist-eb7b4",
+    "storage_bucket": "smartlist-eb7b4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:137477349225:android:0fc9bf6455fb4967e767f8",
+        "android_client_info": {
+          "package_name": "com.SmartList"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "137477349225-idmcegeanrhg7p9k51icvsld8em6hvh2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.SmartList",
+            "certificate_hash": "661b704831b69866c01b06be747ab63a1439e116"
+          }
+        },
+        {
+          "client_id": "137477349225-8e032no8kh6u67oom95vgd4ta4qtvrc2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAPKUPLlKh2C5ikEQP8sYZkrPtNaLIyqbM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "137477349225-8e032no8kh6u67oom95vgd4ta4qtvrc2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

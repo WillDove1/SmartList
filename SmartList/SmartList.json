@@ -1,0 +1,51 @@
+{
+    "listas_asistencia": [
+      {
+        "fecha": "2023-06-01",
+        "alumnos": [
+          {
+            "numero_control": "001",
+            "nombre": "Juan",
+            "apellido": "Pérez",
+            "asistencia": true
+          },
+          {
+            "numero_control": "002",
+            "nombre": "María",
+            "apellido": "Gómez",
+            "asistencia": false
+          },
+          {
+            "numero_control": "003",
+            "nombre": "Carlos",
+            "apellido": "López",
+            "asistencia": true
+          }
+        ]
+      },
+      {
+        "fecha": "2023-06-02",
+        "alumnos": [
+          {
+            "numero_control": "001",
+            "nombre": "Juan",
+            "apellido": "Pérez",
+            "asistencia": true
+          },
+          {
+            "numero_control": "003",
+            "nombre": "Carlos",
+            "apellido": "López",
+            "asistencia": true
+          },
+          {
+            "numero_control": "004",
+            "nombre": "Laura",
+            "apellido": "Ramírez",
+            "asistencia": false
+          }
+        ]
+      }
+    ]
+  }
+  
