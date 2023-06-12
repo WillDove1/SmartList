@@ -21,7 +21,7 @@ const Lista = ({navigation}) => {
 
   const fetchCharacters = async () => {
     try {
-      const response = await axios.get('http://192.168.0.139:3000/api/alumnos');
+      const response = await axios.get('http://192.168.97.88:3000/api/alumnos');
 
       setCharacters(response.data);
       console.info(response.data);
@@ -36,6 +36,38 @@ const Lista = ({navigation}) => {
   const [inputValueNombre, setInputValueNombre] = useState('');
   const [inputValueNoControl, setInputValueNoControl] = useState('');
   const [inputValueApellido, setInputValueApellido] = useState('');
+  const [record, setRecord] = useState({
+    nombre: '',
+    apellido: '',
+    numero_control: '',
+  });
+
+  const handleChange = (key, value) => {
+    setRecord({ ...record, [key]: value });
+  };
+
+  const reloadScreen = () => {
+    navigation.replace('AgregarAlumnosScreen');
+  };
+
+  const addRecord = () => {
+    fetch('http://192.168.97.88:3000/api/alumnos', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(record),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('Registro agregado:', data);
+        // Aquí puedes realizar alguna acción adicional después de agregar el registro
+      })
+      .catch((error) => {
+        console.error('Error al agregar el registro:', error);
+      });
+  };
+  
 
   const openDialog = () => {
     setModalVisible(true);
@@ -64,11 +96,26 @@ const Lista = ({navigation}) => {
     [
       { text: 'Cancelar', onPress: () => console.log('Cancelar presionado'), style: 'cancel' },
       { text: 'Editar', onPress: () => handleItemPress(item) },
-      { text: 'Eliminar', onPress: () => console.log('eliminado') }
+      { text: 'Eliminar', onPress: () => {
+        axios
+          .delete(`http://192.168.97.88:3000/api/alumnos/${item.id}`)
+          .then((response) => {
+            console.log('registro eliminado', response.data);
+            fetchCharacters();
+          })
+          .catch((error) => {
+            console.error('Error',error);
+          })
+      } }
       
     ]
   );
 }
+
+const handleAddAndClose = () => {
+  addRecord(); // Lógica para agregar el elemento
+  closeDialog(); // Lógica para cerrar el modal
+};
 
   const renderItem = ({ item }) => (
     <TouchableOpacity style={styles.itemContainer} onPress={() => handleItemClick(item)}>
@@ -84,11 +131,36 @@ const Lista = ({navigation}) => {
   const handleCloseModal = () => {
     setModalVisible2(false);
   };
+
+  const handleEditAlumno = () => {
+    const { id } = selectedItem;
+    const updatedAlumno = {
+      nombre: inputValueNombre,
+      apellido: inputValueApellido,
+      numero_control: inputValueNoControl
+    };
+  
+    axios.put(`http://192.168.97.88:3000/api/alumnos/${id}`, updatedAlumno)
+      .then(response => {
+        // Actualizar el estado de tu componente con los datos actualizados
+        // Si estás utilizando un estado global, también podrías actualizarlo aquí
+        console.log(response.data);
+        // Cerrar el modal
+        setModalVisible2(false);
+      })
+      .catch(error => {
+        console.error(error);
+        // Manejar el error de acuerdo a tus necesidades
+      });
+  };
   
 
   const renderFloatingButton = () => (
     
     <View>
+    <TouchableOpacity style={styles.floatingButtonRecargar} onPress={fetchCharacters}>
+      <Text style={styles.floatingButtonText}>R</Text>
+    </TouchableOpacity>   
     <TouchableOpacity style={styles.floatingButton} onPress={openDialog}>
       <Text style={styles.floatingButtonText}>+</Text>
     </TouchableOpacity>
@@ -101,8 +173,8 @@ const Lista = ({navigation}) => {
             style={styles.input}
             placeholder="Ingresa numero de control"
             placeholderTextColor="gray"
-            value={inputValueNoControl}
-            onChangeText={textNoControl => setInputValueNoControl(textNoControl)}
+            value={record.numero_control}
+            onChangeText={textNoControl => handleChange('numero_control',textNoControl)}
           />
           
         
@@ -110,8 +182,8 @@ const Lista = ({navigation}) => {
             style={styles.input}
             placeholder="Ingresa el nombre"
             placeholderTextColor="gray"
-            value={inputValueNombre}
-            onChangeText={textNombre => setInputValueNombre(textNombre)}
+            value={record.nombre}
+            onChangeText={textNombre => handleChange('nombre',textNombre)}
           />
           
   
@@ -119,12 +191,12 @@ const Lista = ({navigation}) => {
             style={styles.input}
             placeholder="Ingresa el apellido"
             placeholderTextColor="gray"
-            value={inputValueApellido}
-            onChangeText={textApellido => setInputValueApellido(textApellido)}
+            value={record.apellido}
+            onChangeText={textApellido => handleChange('apellido',textApellido)}
           />
 
           <View style={styles.buttonContainer}>
-            <Button title="Agregar" onPress={handleSubmit} />
+            <Button title="Agregar" onPress={handleAddAndClose} />
             <Button title="Cancelar" onPress={closeDialog} />
           </View>
         </View>
@@ -180,7 +252,7 @@ const Lista = ({navigation}) => {
           />
 
           <View style={styles.buttonContainer}>
-            <Button title="Editar" onPress={handleSubmit} />
+            <Button title="Editar" onPress={handleEditAlumno}/>
             <Button title="Cancelar" onPress={handleCloseModal} />
           </View>
         </View>
@@ -245,6 +317,18 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 16,
     right: 16,
+    backgroundColor: '#4285F4',
+    borderRadius: 25,
+    width: 50,
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    elevation: 4,
+  },
+  floatingButtonRecargar: {
+    position: 'relative',
+    bottom: 16,
+    left: 16,
     backgroundColor: '#4285F4',
     borderRadius: 25,
     width: 50,
